@@ -1,9 +1,7 @@
-import random
 import time
-from typing import List
 
 from application_business_rules.rules import Logger, MotionDetector, SingleShotDetector
-from entities.vectors import BoundingBox, MotionVector, StopVector, Vector, Velocity
+from entities.vectors import Vector
 
 
 def start_motion_detector(motion_detector: MotionDetector, vectors: Vector):

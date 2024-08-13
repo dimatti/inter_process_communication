@@ -1,6 +1,6 @@
 import multiprocessing
-from typing import List
-from application_business_rules.rules import Log, Logger, MotionDetector, ProcessVector, Queue, SingleShotDetector
+
+from application_business_rules.rules import Log, ProcessVector, Queue
 from entities.vectors import DetectionVector, MotionVector, Prediction, Vector
 
 
@@ -26,5 +26,8 @@ class ProcessVectorAdapter(ProcessVector):
             timestamp=motion_vector.timestamp,
             frame_id=motion_vector.frame_id,
             bounding_box=motion_vector.bounding_box,
-            class_prediction_vector=[Prediction(prediction="cat", percent=80.1), Prediction(prediction="human", percent=10.5)]
+            class_prediction_vector=[
+                Prediction(prediction="cat", percent=80.1),
+                Prediction(prediction="human", percent=10.5),
+            ],
         )
