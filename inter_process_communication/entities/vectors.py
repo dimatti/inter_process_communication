@@ -2,6 +2,15 @@ from dataclasses import dataclass
 from typing import List
 
 
+class Vector:
+    pass
+
+
+@dataclass
+class StopVector(Vector):
+    pass
+
+
 @dataclass
 class BoundingBox:
     x: int
@@ -23,22 +32,17 @@ class Prediction:
 
 
 @dataclass
-class Vector:
+class DataVector(Vector):
     timestamp: float
     frame_id: int
     bounding_box: BoundingBox
 
 
 @dataclass
-class StopVector(Vector):
-    pass
-
-
-@dataclass
-class MotionVector(Vector):
+class MotionVector(DataVector):
     velocity_vector: Velocity
 
 
 @dataclass
-class DetectionVector(Vector):
+class DetectionVector(DataVector):
     class_prediction_vector: List[Prediction]

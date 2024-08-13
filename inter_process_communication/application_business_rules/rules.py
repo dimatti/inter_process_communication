@@ -54,7 +54,7 @@ class SingleShotDetector:
     def execute(self) -> None:
         while True:
             vector = self.detection_queue.get()
-            if vector == StopVector:
+            if isinstance(vector, StopVector):
                 return
             processed = self.processor.process(vector)
             self.logger_queue.put(processed)
@@ -69,5 +69,5 @@ class Logger:
         while True:
             vector = self.queue.get()
             self.log.log(vector)
-            if vector == StopVector:
+            if isinstance(vector, StopVector):
                 return

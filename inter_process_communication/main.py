@@ -17,7 +17,7 @@ def get_vectors(count: int = 5) -> List[Vector]:
                 bounding_box=BoundingBox(x=random.randint(0, 200), y=random.randint(0, 200), width=random.randint(0, 100), height=random.randint(0, 100)),
                 velocity_vector=Velocity(vx=random.uniform(0.0, 5.0), vy=random.uniform(0.0, 5.0))
             ) for _ in range(count)]
-    vectors.append(StopVector) # special technical vector to stop sending vectors
+    vectors.append(StopVector()) # special technical vector to stop sending vectors
     return vectors
 
 if __name__ == "__main__":
