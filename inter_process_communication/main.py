@@ -4,14 +4,13 @@ import random
 import time
 from typing import List
 
-from application_business_rules.rules import Logger, MotionDetector, SingleShotDetector
 from entities.vectors import BoundingBox, MotionVector, StopVector, Vector, Velocity
-from frameworks_and_drivers.input import (
-    start_logger,
-    start_motion_detector,
-    start_single_shot_detector,
+from interface_adapters.adapters import (
+    QueueAdapter,
+    get_logger_process,
+    get_motion_detector_process,
+    get_single_shot_detector_process,
 )
-from interface_adapters.adapters import LogAdapter, ProcessVectorAdapter, QueueAdapter
 
 
 def get_vectors(count: int = 5) -> List[Vector]:
@@ -50,19 +49,13 @@ if __name__ == "__main__":
     detection_queue = QueueAdapter(multiprocessing.Queue())
     logger_queue = QueueAdapter(multiprocessing.Queue())
 
-    motion_detector = MotionDetector(detection_queue, logger_queue)
-    single_shot_detector = SingleShotDetector(
-        detection_queue, logger_queue, ProcessVectorAdapter()
+    motion_detector_process = get_motion_detector_process(
+        detection_queue, logger_queue, get_vectors(args.count)
     )
-    logger = Logger(logger_queue, LogAdapter())
-
-    motion_detector_process = multiprocessing.Process(
-        target=start_motion_detector, args=(motion_detector, get_vectors(args.count))
+    single_shot_detector_process = get_single_shot_detector_process(
+        detection_queue, logger_queue
     )
-    single_shot_detector_process = multiprocessing.Process(
-        target=start_single_shot_detector, args=(single_shot_detector,)
-    )
-    logger_process = multiprocessing.Process(target=start_logger, args=(logger,))
+    logger_process = get_logger_process(logger_queue)
 
     motion_detector_process.start()
     single_shot_detector_process.start()

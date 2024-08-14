@@ -1,5 +1,5 @@
 import abc
-from typing import List
+import time
 
 from entities.vectors import DetectionVector, MotionVector, StopVector, Vector
 
@@ -60,3 +60,17 @@ class Logger:
             self.log.log(vector)
             if isinstance(vector, StopVector):
                 return
+
+
+def start_motion_detector(motion_detector: MotionDetector, vectors: Vector):
+    for vector in vectors:
+        motion_detector.execute(vector)
+        time.sleep(0.1)
+
+
+def start_single_shot_detector(single_shot_detector: SingleShotDetector):
+    single_shot_detector.execute()
+
+
+def start_logger(logger: Logger):
+    logger.execute()
