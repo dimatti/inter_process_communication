@@ -14,6 +14,16 @@ from interface_adapters.adapters import (
 
 
 def get_vectors(count: int = 5) -> List[Vector]:
+    """
+    Generates a list of random MotionVector objects with dummy data and appends
+    a StopVector to signal the end of the message stream.
+
+    Args:
+        count (int): The number of MotionVector objects to generate.
+
+    Returns:
+        List[Vector]: A list containing MotionVector instances followed by a StopVector.
+    """
     vectors = [
         MotionVector(
             timestamp=random.uniform(time.time() - 1000, time.time()),
@@ -35,6 +45,17 @@ def get_vectors(count: int = 5) -> List[Vector]:
 
 
 if __name__ == "__main__":
+    """
+    Main entry point for the inter-process communication application.
+
+    This script initializes the necessary processes for simulating a motion detector,
+    single-shot detector, and logger. It accepts the number of vectors to be generated
+    as a command-line argument, sets up the multiprocessing queues, and starts the
+    processes. Each process runs until completion, at which point the script exits.
+
+    Command-line arguments:
+        count (int): The number of MotionVector objects to generate and send through the pipeline.
+    """
     parser = argparse.ArgumentParser(
         description="Interprocessor communication testing program"
     )

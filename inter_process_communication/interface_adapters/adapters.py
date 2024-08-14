@@ -32,6 +32,16 @@ class QueueAdapter(Queue):
 
 
 class ProcessVectorAdapter(ProcessVector):
+    """
+    Adapter for processing motion vectors into detection vectors.
+
+    This class simulates processing by generating dummy prediction data.
+
+    Methods:
+        process(motion_vector: MotionVector) -> DetectionVector: Processes a motion vector
+        and returns a detection vector with dummy predictions.
+    """
+
     def process(self, motion_vector: MotionVector) -> DetectionVector:
         return DetectionVector(
             timestamp=motion_vector.timestamp,
@@ -47,6 +57,17 @@ class ProcessVectorAdapter(ProcessVector):
 def get_motion_detector_process(
     detection_queue: Queue, logger_queue: Queue, vectors: List[Vector]
 ) -> multiprocessing.Process:
+    """
+    Creates a multiprocessing process for the MotionDetector.
+
+    Args:
+        detection_queue (Queue): The queue for sending vectors to the detector.
+        logger_queue (Queue): The queue for sending vectors to the logger.
+        vectors (List[Vector]): A list of vectors to be processed.
+
+    Returns:
+        multiprocessing.Process: A process running the motion detector.
+    """
     motion_detector = MotionDetector(detection_queue, logger_queue)
     return multiprocessing.Process(
         target=start_motion_detector, args=(motion_detector, vectors)
