@@ -27,10 +27,9 @@ class MotionDetector:
         self.detection_queue = detection_queue
         self.logger_queue = logger_queue
 
-    def execute(self, vectors: List[Vector]) -> None:
-        for vector in vectors:
-            self.detection_queue.put(vector)
-            self.logger_queue.put(vector)
+    def execute(self, vector: Vector) -> None:
+        self.detection_queue.put(vector)
+        self.logger_queue.put(vector)
 
 
 class SingleShotDetector:
