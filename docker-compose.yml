@@ -1,0 +1,11 @@
+version: '2.2'
+
+services:
+  app:
+    build: .
+    container_name: inter_process_communication
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python inter_process_communication/main.py
+    volumes:
+      - .:/app
