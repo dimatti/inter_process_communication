@@ -66,9 +66,9 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-
-    detection_queue = QueueAdapter(multiprocessing.Queue())
-    logger_queue = QueueAdapter(multiprocessing.Queue())
+    m = multiprocessing.Manager()
+    detection_queue = QueueAdapter(m.Queue())
+    logger_queue = QueueAdapter(m.Queue())
 
     motion_detector_process = get_motion_detector_process(
         detection_queue, logger_queue, get_vectors(args.count)

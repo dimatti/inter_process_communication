@@ -25,8 +25,9 @@ def create_test_motion_vector():
 
 @pytest.fixture
 def queues():
-    detection_queue = QueueAdapter(multiprocessing.Queue())
-    logger_queue = QueueAdapter(multiprocessing.Queue())
+    m = multiprocessing.Manager()
+    detection_queue = QueueAdapter(m.Queue())
+    logger_queue = QueueAdapter(m.Queue())
     return detection_queue, logger_queue
 
 
