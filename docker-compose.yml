@@ -6,6 +6,6 @@ services:
     container_name: inter_process_communication
     environment:
       - PYTHONUNBUFFERED=1
-    command: python inter_process_communication/main.py
+    command: python inter_process_communication/main.py ${COUNT}
     volumes:
       - .:/app

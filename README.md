@@ -84,10 +84,10 @@ The project includes a `Dockerfile` and a `docker-compose.yml` file for containe
 2. **Run the application using Docker Compose**:
 
    ```bash
-   docker-compose up
+   COUNT=10 docker-compose up
    ```
 
-   This command will build the Docker image (if not already built) and start the application in a containerized environment.
+   This command will build the Docker image (if not already built) and start the application, generating 10 motion vectors in a containerized environment.
 
 ### Additional Information
 
